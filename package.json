@@ -1,0 +1,38 @@
+{
+  "name": "nodejs-example",
+  "version": "1.0.0",
+  "description": "Api example using nodejs and express",
+  "main": "index.js",
+  "scripts": {
+    "develop": "nodemon --exec src --exec babel-node src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pillowslept/nodejs-example.git"
+  },
+  "author": "Juan Camilo Velásquez Vanegas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pillowslept/nodejs-example/issues"
+  },
+  "homepage": "https://github.com/pillowslept/nodejs-example#readme",
+  "dependencies": {
+    "babel-plugin-module-resolver": "^3.2.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "eslint": "^5.16.0",
+    "express": "^4.16.4",
+    "express-group-routes": "^1.1.0",
+    "express-list-endpoints": "^4.0.1",
+    "http-status": "^1.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/register": "^7.4.4",
+    "nodemon": "^1.19.0"
+  }
+}

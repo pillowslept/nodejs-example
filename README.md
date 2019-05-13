@@ -8,6 +8,12 @@ Api example using nodejs and express
 * Configure port
 * Set default API prefix
 
+## Running
+
+```
+npm run develop
+```
+
 ## Author
 
 * **Juan Camilo Velásquez Vanegas** - [Juan Camilo Velásquez](https://github.com/pillowslept)

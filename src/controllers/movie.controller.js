@@ -1,6 +1,12 @@
 import { OK, BAD_REQUEST, NOT_FOUND, CONFLICT } from 'http-status'
 import * as movieService from 'services/movie.service'
 
+import {
+  RECORD_NOT_FOUND,
+  RECORD_NOT_UPDATED,
+  NAME_FIELD_REQUIRED
+} from 'constants/messages.constant'
+
 export const all = async (req, res) => {
   const [rows] = await movieService.all()
 
@@ -16,7 +22,7 @@ export const byId = async ({ params: { id } }, res) => {
   if (!record || !record.length) {
     return res.status(NOT_FOUND).send({
       success: false,
-      message: 'The record wasn\'t found'
+      message: RECORD_NOT_FOUND
     })
   }
 
@@ -30,7 +36,7 @@ export const create = async ({ body }, res) => {
   if (!body.name) {
     return res.status(BAD_REQUEST).send({
       success: false,
-      message: 'The field name is required'
+      message: NAME_FIELD_REQUIRED
     })
   }
 
@@ -48,7 +54,7 @@ export const markAsWatched = async ({ params: { id } }, res) => {
   if (!record || !record.length) {
     return res.status(NOT_FOUND).send({
       success: false,
-      message: 'The record wasn\'t found'
+      message: RECORD_NOT_FOUND
     })
   }
 
@@ -57,7 +63,7 @@ export const markAsWatched = async ({ params: { id } }, res) => {
   if (!affectedRows) {
     return res.status(CONFLICT).send({
       success: false,
-      message: 'The record wasn\'t updated'
+      message: RECORD_NOT_UPDATED
     })
   }
 

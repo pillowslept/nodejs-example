@@ -2,11 +2,18 @@
 
 Api example using nodejs and express
 
+## Installing
+
+```
+npm install
+```
+
 ## env configuration
 
 * Copy .env.example to .env
 * Configure port
 * Set default API prefix
+* Configure mysql database
 
 ## Running
 

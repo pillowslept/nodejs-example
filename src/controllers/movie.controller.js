@@ -1,92 +1,62 @@
-import { OK, BAD_REQUEST, NOT_FOUND, CONFLICT } from 'http-status'
+import { sanitize, validate } from 'schema-inspector'
+import { createValidation } from 'validations/movie.validation'
 import * as movieService from 'services/movie.service'
-
-import {
-  RECORD_NOT_FOUND,
-  RECORD_NOT_UPDATED,
-  NAME_FIELD_REQUIRED
-} from 'constants/messages.constant'
+import { RECORD_NOT_FOUND, RECORD_NOT_UPDATED } from 'constants/messages.constant'
+import { success, notFound, badRequest } from 'utils/format-response'
 
 export const all = async (req, res) => {
   const [rows] = await movieService.all()
 
-  return res.status(OK).send({
-    success: true,
-    data: rows
-  })
+  return success(res, rows)
 }
 
 export const byId = async ({ params: { id } }, res) => {
   const [record] = await movieService.byId(id)
 
   if (!record || !record.length) {
-    return res.status(NOT_FOUND).send({
-      success: false,
-      message: RECORD_NOT_FOUND
-    })
+    return notFound(res, RECORD_NOT_FOUND)
   }
 
-  return res.status(OK).send({
-    success: true,
-    data: record
-  })
+  return success(res, record)
 }
 
 export const create = async ({ body }, res) => {
-  if (!body.name) {
-    return res.status(BAD_REQUEST).send({
-      success: false,
-      message: NAME_FIELD_REQUIRED
-    })
+  sanitize(createValidation.sanitize, body)
+  const validation = validate(createValidation.validate, body)
+
+  if (!validation.valid) {
+    return badRequest(res, validation.format())
   }
 
   const [{ insertId }] = await movieService.create(body)
 
-  return res.status(OK).send({
-    success: true,
-    data: insertId
-  })
+  return success(res, insertId)
 }
 
 export const markAsWatched = async ({ params: { id } }, res) => {
   const [record] = await movieService.byId(id)
 
   if (!record || !record.length) {
-    return res.status(NOT_FOUND).send({
-      success: false,
-      message: RECORD_NOT_FOUND
-    })
+    return notFound(res, RECORD_NOT_FOUND)
   }
 
   const [{ affectedRows }] = await movieService.markAsWatched(id)
 
   if (!affectedRows) {
-    return res.status(CONFLICT).send({
-      success: false,
-      message: RECORD_NOT_UPDATED
-    })
+    return badRequest(res, RECORD_NOT_UPDATED)
   }
 
-  return res.status(OK).send({
-    success: true,
-    data: record
-  })
+  return success(res, record)
 }
 
 export const seen = async (req, res) => {
   const [rows] = await movieService.seen()
 
-  return res.status(OK).send({
-    success: true,
-    data: rows
-  })
+  return success(res, rows)
 }
 
 export const toWatch = async (req, res) => {
   const [rows] = await movieService.toWatch()
 
-  return res.status(OK).send({
-    success: true,
-    data: rows
-  })
+  return success(res, rows)
 }

@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { OK } from 'http-status'
 import defaultRoutes from 'routes/default.route'
 import movieRoutes from 'routes/movie.route'
-import { APP_WORKS } from 'constants/default.constant'
+import { APP_WORKS } from 'constants/messages.constant'
 
 const router = Router()
 

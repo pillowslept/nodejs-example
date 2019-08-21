@@ -5,19 +5,19 @@ import { RECORD_NOT_FOUND, RECORD_NOT_UPDATED } from 'constants/messages.constan
 import { success, notFound, badRequest } from 'utils/format-response'
 
 export const all = async (req, res) => {
-  const [rows] = await movieService.all()
+  const data = await movieService.all()
 
-  return success(res, rows)
+  return success(res, data)
 }
 
 export const byId = async ({ params: { id } }, res) => {
-  const [record] = await movieService.byId(id)
+  const data = await movieService.byId(id)
 
-  if (!record || !record.length) {
+  if (!data) {
     return notFound(res, RECORD_NOT_FOUND)
   }
 
-  return success(res, record)
+  return success(res, data)
 }
 
 export const create = async ({ body }, res) => {
@@ -28,35 +28,35 @@ export const create = async ({ body }, res) => {
     return badRequest(res, validation.format())
   }
 
-  const [{ insertId }] = await movieService.create(body)
+  const data = await movieService.create(body)
 
-  return success(res, insertId)
+  return success(res, data)
 }
 
 export const markAsWatched = async ({ params: { id } }, res) => {
-  const [record] = await movieService.byId(id)
+  const movie = await movieService.byId(id)
 
-  if (!record || !record.length) {
+  if (!movie) {
     return notFound(res, RECORD_NOT_FOUND)
   }
 
-  const [{ affectedRows }] = await movieService.markAsWatched(id)
+  const data = await movieService.markAsWatched(id)
 
-  if (!affectedRows) {
+  if (!data) {
     return badRequest(res, RECORD_NOT_UPDATED)
   }
 
-  return success(res, record)
+  return success(res, movie)
 }
 
 export const seen = async (req, res) => {
-  const [rows] = await movieService.seen()
+  const data = await movieService.seen()
 
-  return success(res, rows)
+  return success(res, data)
 }
 
 export const toWatch = async (req, res) => {
-  const [rows] = await movieService.toWatch()
+  const data = await movieService.toWatch()
 
-  return success(res, rows)
+  return success(res, data)
 }

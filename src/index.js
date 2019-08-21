@@ -1,9 +1,8 @@
 import http from 'http'
 import app from 'app'
 import 'dotenv/config'
-import simpleLogger from 'simple-node-logger'
+import * as logger from 'config/logger'
 
-const logger = simpleLogger.createSimpleLogger()
 const port = process.env.PORT || '3000'
 
 const server = http.createServer(app)

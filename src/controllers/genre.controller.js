@@ -32,3 +32,15 @@ export const create = async ({ body }, res) => {
 
   return success(res, data)
 }
+
+export const moviesByGenre = async ({ params: { id } }, res) => {
+  const record = await genreService.byId(id)
+
+  if (!record) {
+    return notFound(res, RECORD_NOT_FOUND)
+  }
+
+  const data = await genreService.moviesByGenre(id)
+
+  return success(res, data)
+}

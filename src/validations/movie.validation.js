@@ -16,3 +16,23 @@ export const createValidation = {
     }
   }
 }
+
+export const addGenresValidation = {
+  sanitize: {
+    type: 'object',
+    properties: {
+      genres: {
+        type: 'array',
+        items: { type: 'integer' }
+      }
+    }
+  },
+  validate: {
+    type: 'object',
+    properties: {
+      genres: {
+        type: 'array', optional: false, minLength: 1, uniqueness: true
+      }
+    }
+  }
+}

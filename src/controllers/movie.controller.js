@@ -1,5 +1,5 @@
 import { sanitize, validate } from 'schema-inspector'
-import { createValidation } from 'validations/movie.validation'
+import { createValidation, addGenresValidation } from 'validations/movie.validation'
 import * as movieService from 'services/movie.service'
 import { RECORD_NOT_FOUND, RECORD_NOT_UPDATED } from 'constants/messages.constant'
 import { success, notFound, badRequest } from 'utils/format-response'
@@ -29,6 +29,25 @@ export const create = async ({ body }, res) => {
   }
 
   const data = await movieService.create(body)
+
+  return success(res, data)
+}
+
+export const addGenres = async ({ params: { id }, body }, res) => {
+  const movie = await movieService.byId(id)
+
+  if (!movie) {
+    return notFound(res, RECORD_NOT_FOUND)
+  }
+
+  sanitize(addGenresValidation.sanitize, body)
+  const validation = validate(addGenresValidation.validate, body)
+
+  if (!validation.valid) {
+    return badRequest(res, validation.format())
+  }
+
+  const data = await movieService.addGenres(id, body)
 
   return success(res, data)
 }

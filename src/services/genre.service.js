@@ -14,6 +14,6 @@ export const create = async ({ name }) => {
 
 export const moviesByGenre = async (id) => {
   return Movie.findAll({
-    include: [{ model: Genre, through: { attributes: [] }, where: { id } }]
+    include: [{ model: Genre, attributes: [], where: { id } }]
   })
 }

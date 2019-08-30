@@ -1,4 +1,4 @@
-export const createValidation = {
+export const createUpdateValidation = {
   sanitize: {
     type: 'object',
     properties: {

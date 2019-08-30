@@ -12,6 +12,12 @@ export const create = async ({ name }) => {
   return Genre.create({ name })
 }
 
+export const update = async (id, { name }) => {
+  const genre = await byId(id)
+
+  return genre.update({ name })
+}
+
 export const moviesByGenre = async (id) => {
   return Movie.findAll({
     include: [{ model: Genre, attributes: [], where: { id } }]

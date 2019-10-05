@@ -1,10 +1,11 @@
 import { ApiException } from 'utils/errors.exceptions'
+import { BAD_REQUEST, NOT_FOUND } from 'http-status'
 import { sanitize, validate } from 'schema-inspector'
 import { createValidation, addGenresValidation } from 'validations/movie.validation'
 import * as movieService from 'services/movie.service'
 import { RECORD_NOT_FOUND, RECORD_NOT_UPDATED } from 'constants/messages.constant'
 import { success } from 'utils/format-response'
-import { BAD_REQUEST, NOT_FOUND } from 'http-status'
+import * as reportComponent from 'components/report.component'
 
 export const all = async (req, res, next) => {
   try {
@@ -105,6 +106,28 @@ export const toWatch = async (req, res, next) => {
     const data = await movieService.toWatch()
 
     return success(res, data)
+  } catch (err) {
+    next(err)
+  }
+}
+
+export const report = async ({ params: { id } }, res, next) => {
+  try {
+    const movie = await movieService.byId(id)
+
+    if (!movie) {
+      throw new ApiException(RECORD_NOT_FOUND, NOT_FOUND)
+    }
+
+    const filename = `report_${movie.id}.pdf`
+
+    res.setHeader('Content-disposition', `inline; filename="${filename}"`)
+    res.setHeader('Content-type', 'application/pdf')
+
+    const doc = reportComponent.byMovie(movie)
+
+    doc.pipe(res)
+    doc.end()
   } catch (err) {
     next(err)
   }

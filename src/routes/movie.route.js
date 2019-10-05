@@ -12,6 +12,7 @@ router.put('/:id([0-9]+)/watched', movieController.markAsWatched)
 router.get('/seen', movieController.seen)
 router.get('/to-watch', movieController.toWatch)
 router.put('/:id([0-9]+)/genre', movieController.addGenres)
+router.get('/report/:id([0-9]+)', movieController.report)
 
 router.group('/genre', (router) => {
   router.get('/:id([0-9]+)', genreController.moviesByGenre)

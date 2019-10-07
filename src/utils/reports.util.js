@@ -15,6 +15,8 @@ export const header = (doc, name) => {
     .text(datesUtils.actualDate(), 200, 65, { align: 'right' })
     .text('Antioquia, Medellín, 050022', 200, 80, { align: 'right' })
     .moveDown()
+
+  separator(doc, 110)
 }
 
 export const title = (doc, text, yPosition) => {

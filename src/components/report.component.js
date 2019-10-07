@@ -7,46 +7,40 @@ export const byMovie = (movie) => {
   const doc = new Pdfkit({ margin: 50 })
 
   reportUtils.header(doc, 'Movies report')
-  reportUtils.separator(doc, 110)
 
-  // summary
-  reportUtils.title(doc, movie.name, 160)
-  reportUtils.separator(doc, 185)
-
-  const summaryTopPosition = 200
   const state = movie.state === ACTIVE ? ACTIVE_TEXT : INACTIVE_TEXT
+  buildSummary(doc, movie, state)
 
-  doc
-    .fontSize(10)
-    .font(reportUtils.BOLD_FONT)
-    .text('ID:', 50, summaryTopPosition)
-    .font(reportUtils.FONT)
-    .text(movie.id, 130, summaryTopPosition)
-    .font(reportUtils.BOLD_FONT)
-    .text('Creation date:', 50, summaryTopPosition + 15)
-    .font(reportUtils.FONT)
-    .text(datesUtils.buildDate(movie.createdAt), 130, summaryTopPosition + 15)
-    .font(reportUtils.BOLD_FONT)
-    .text('Updated date:', 50, summaryTopPosition + 30)
-    .font(reportUtils.FONT)
-    .text(datesUtils.buildDate(movie.updatedAt), 130, summaryTopPosition + 30)
-    .font(reportUtils.BOLD_FONT)
-    .text('State:', 50, summaryTopPosition + 45)
-    .font(reportUtils.FONT)
-    .text(state, 130, summaryTopPosition + 45)
-    .moveDown()
+  buildTable(doc, 'Genres', movie.genres)
 
-  reportUtils.separator(doc, 265)
+  reportUtils.footer(doc, 'Generated using PdfKit.')
 
-  // summary table
-  reportUtils.subTitle(doc, 'Genres', 300, 'left')
+  return doc
+}
+
+export const byGenre = (genre, movies) => {
+  const doc = new Pdfkit({ margin: 50 })
+
+  reportUtils.header(doc, 'Genres report')
+
+  buildSummary(doc, genre, '--')
+
+  buildTable(doc, 'Movies', movies)
+
+  reportUtils.footer(doc, 'Generated using PdfKit.')
+
+  return doc
+}
+
+const buildTable = (doc, title, array) => {
+  reportUtils.subTitle(doc, title, 300, 'left')
   reportUtils.separator(doc, 320)
 
-  let genresTableTop = 350
+  let tableTop = 350
 
   reportUtils.fourColumnsRow(
     doc,
-    genresTableTop,
+    tableTop,
     reportUtils.BOLD_FONT,
     'ID',
     'Name',
@@ -54,11 +48,11 @@ export const byMovie = (movie) => {
     'Updated at'
   )
 
-  reportUtils.separator(doc, genresTableTop + 20)
+  reportUtils.separator(doc, tableTop + 20)
 
   let lastPosition = 0
-  movie.genres.forEach(({ id, name, createdAt, updatedAt }, index) => {
-    const position = genresTableTop + (index + 1) * 30
+  array.forEach(({ id, name, createdAt, updatedAt }, index) => {
+    const position = tableTop + (index + 1) * 30
     reportUtils.fourColumnsRow(
       doc,
       position,
@@ -73,9 +67,34 @@ export const byMovie = (movie) => {
     reportUtils.separator(doc, lastPosition)
   })
 
-  reportUtils.subTitle(doc, `Total: ${movie.genres.length}`, lastPosition + 10, 'right')
+  reportUtils.subTitle(doc, `Total: ${array.length}`, lastPosition + 10, 'right')
+}
 
-  reportUtils.footer(doc, 'Generated using PdfKit.')
+const buildSummary = (doc, summary, state) => {
+  reportUtils.title(doc, summary.name, 160)
+  reportUtils.separator(doc, 185)
 
-  return doc
+  const summaryTopPosition = 200
+
+  doc
+    .fontSize(10)
+    .font(reportUtils.BOLD_FONT)
+    .text('ID:', 50, summaryTopPosition)
+    .font(reportUtils.FONT)
+    .text(summary.id, 130, summaryTopPosition)
+    .font(reportUtils.BOLD_FONT)
+    .text('Creation date:', 50, summaryTopPosition + 15)
+    .font(reportUtils.FONT)
+    .text(datesUtils.buildDate(summary.createdAt), 130, summaryTopPosition + 15)
+    .font(reportUtils.BOLD_FONT)
+    .text('Updated date:', 50, summaryTopPosition + 30)
+    .font(reportUtils.FONT)
+    .text(datesUtils.buildDate(summary.updatedAt), 130, summaryTopPosition + 30)
+    .font(reportUtils.BOLD_FONT)
+    .text('State:', 50, summaryTopPosition + 45)
+    .font(reportUtils.FONT)
+    .text(state, 130, summaryTopPosition + 45)
+    .moveDown()
+
+  reportUtils.separator(doc, 265)
 }

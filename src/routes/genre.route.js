@@ -7,5 +7,6 @@ router.get('/', genreController.all)
 router.get('/:id([0-9]+)', genreController.byId)
 router.post('/', genreController.create)
 router.put('/:id([0-9]+)', genreController.update)
+router.get('/report/:id([0-9]+)', genreController.report)
 
 export default router

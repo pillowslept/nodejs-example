@@ -3,6 +3,7 @@ import { BAD_REQUEST, NOT_FOUND } from 'http-status'
 import { sanitize, validate } from 'schema-inspector'
 import { createValidation, addGenresValidation } from 'validations/movie.validation'
 import * as movieService from 'services/movie.service'
+import * as companyService from 'services/company.service'
 import { RECORD_NOT_FOUND, RECORD_NOT_UPDATED } from 'constants/messages.constant'
 import { success } from 'utils/format-response'
 import * as reportComponent from 'components/report.component'
@@ -38,6 +39,12 @@ export const create = async ({ body }, res, next) => {
 
     if (!validation.valid) {
       throw new ApiException(validation.format(), BAD_REQUEST)
+    }
+
+    const company = await companyService.byId(body.companyId)
+
+    if (!company) {
+      throw new ApiException('Company does not found', NOT_FOUND)
     }
 
     const data = await movieService.create(body)

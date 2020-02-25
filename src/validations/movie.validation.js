@@ -4,6 +4,9 @@ export const createValidation = {
     properties: {
       name: {
         type: 'string', rules: ['trim', 'title']
+      },
+      companyId: {
+        type: 'integer'
       }
     }
   },
@@ -12,6 +15,9 @@ export const createValidation = {
     properties: {
       name: {
         type: 'string', optional: false, minLength: 1
+      },
+      companyId: {
+        type: 'integer', optional: false
       }
     }
   }

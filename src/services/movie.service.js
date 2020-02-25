@@ -1,21 +1,23 @@
 import { ACTIVE, INACTIVE } from 'constants/states.constant'
-import { Movie, Genre } from 'models'
+import { Movie, Genre, Company } from 'models'
+
+const RELATIONS = [{ model: Genre, through: { attributes: [] } }, { model: Company }]
 
 export const all = async () => {
   return Movie.findAll({
-    include: [{ model: Genre, through: { attributes: [] } }]
+    include: RELATIONS
   })
 }
 
 export const byId = async (id) => {
   return Movie.findOne({
     where: { id },
-    include: [{ model: Genre, through: { attributes: [] } }]
+    include: RELATIONS
   })
 }
 
-export const create = async ({ name, state = INACTIVE }) => {
-  return Movie.create({ name, state })
+export const create = async ({ name, state = INACTIVE, companyId }) => {
+  return Movie.create({ name, state, companyId })
 }
 
 export const addGenres = async (id, { genres }) => {

@@ -12,6 +12,10 @@ export const MovieModel = (connection, type) => {
     state: {
       type: type.STRING(1),
       allowNull: false
+    },
+    rate: {
+      type: type.INTEGER(1),
+      allowNull: true
     }
   })
 }

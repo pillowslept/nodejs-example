@@ -20,29 +20,29 @@
   "dependencies": {
     "babel-plugin-module-resolver": "^3.2.0",
     "body-parser": "^1.19.0",
-    "dotenv": "^8.0.0",
-    "express": "^4.16.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "express-group-routes": "^1.1.0",
     "express-list-endpoints": "^4.0.1",
-    "http-status": "^1.3.2",
-    "mysql2": "^1.6.5",
+    "http-status": "^1.4.2",
+    "mysql2": "^1.7.0",
     "pdfkit": "^0.10.0",
-    "schema-inspector": "^1.6.8",
-    "sequelize": "^5.15.1",
-    "simple-node-logger": "^18.12.23"
+    "schema-inspector": "^1.6.9",
+    "sequelize": "^5.21.5",
+    "simple-node-logger": "^18.12.24"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
-    "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.4.4",
-    "@babel/register": "^7.4.4",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/register": "^7.8.6",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-node": "^9.0.1",
-    "eslint-plugin-promise": "^4.1.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "nodemon": "^1.19.0"
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^9.2.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "nodemon": "^1.19.4"
   }
 }

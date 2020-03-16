@@ -3,9 +3,13 @@ import * as companyController from 'controllers/company.controller'
 
 const router = Router()
 
-router.get('/', companyController.all)
-router.get('/:id([0-9]+)', companyController.byId)
-router.post('/', companyController.create)
-router.put('/:id([0-9]+)', companyController.update)
+router.group('/', (router) => {
+  router.get('', companyController.all)
+  router.post('', companyController.create)
+
+  router.route('/:id([0-9]+)')
+    .get(companyController.byId)
+    .put(companyController.update)
+})
 
 export default router

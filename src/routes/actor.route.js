@@ -13,4 +13,6 @@ router.group('/', (router) => {
     .put(actorController.update)
 })
 
+router.get('/movie/:id([0-9]+)', actorController.byMovie)
+
 export default router

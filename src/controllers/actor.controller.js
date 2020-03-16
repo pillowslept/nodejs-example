@@ -3,6 +3,7 @@ import { BAD_REQUEST, NOT_FOUND } from 'http-status'
 import { sanitize, validate } from 'schema-inspector'
 import { createUpdateValidation } from 'validations/actor.validation'
 import * as actorService from 'services/actor.service'
+import * as movieService from 'services/movie.service'
 import { RECORD_NOT_FOUND } from 'constants/messages.constant'
 import { success } from 'utils/format-response'
 import * as requestUtil from 'utils/request.util'
@@ -70,6 +71,22 @@ export const update = async ({ body, params: { id } }, res, next) => {
     const attributes = requestUtil.only(REQUEST_ATTRIBUTES, body)
 
     const data = await actorService.update(id, attributes)
+
+    return success(res, data)
+  } catch (err) {
+    next(err)
+  }
+}
+
+export const byMovie = async ({ params: { id } }, res, next) => {
+  try {
+    const record = await movieService.byId(id)
+
+    if (!record) {
+      throw new ApiException(RECORD_NOT_FOUND, NOT_FOUND)
+    }
+
+    const data = await actorService.byMovie(id)
 
     return success(res, data)
   } catch (err) {

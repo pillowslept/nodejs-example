@@ -8,8 +8,8 @@ export const byId = async (id) => {
   return Company.findOne({ where: { id } })
 }
 
-export const create = async ({ name }) => {
-  return Company.create({ name })
+export const create = async ({ name, since }) => {
+  return Company.create({ name, since })
 }
 
 export const update = async (id, { name }) => {

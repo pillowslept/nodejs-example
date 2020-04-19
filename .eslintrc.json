@@ -25,6 +25,7 @@
         "no-extra-boolean-cast": 1,
         "no-trailing-spaces": "warn",
         "no-multi-spaces": "error",
+        "newline-before-return": "error",
         "indent": ["warn", 2, { "SwitchCase": 1 }],
         "array-bracket-spacing": ["error", "never"],
         "object-curly-spacing": ["error", "always"],

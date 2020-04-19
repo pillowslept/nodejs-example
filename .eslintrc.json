@@ -3,7 +3,9 @@
         "es6": true,
         "node": true
     },
-    "extends": "standard",
+    "extends": [
+        "eslint:recommended"
+    ],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -13,6 +15,21 @@
         "sourceType": "module"
     },
     "rules": {
-        "quotes": ["error", "single"]
+        "no-console": 1,
+        "semi": [2, "never"],
+        "quotes": ["error", "single"],
+        "no-var": "warn",
+        "eqeqeq": "error",
+        "no-unused-vars": "warn",
+        "no-unused-expressions": "error",
+        "no-extra-boolean-cast": 1,
+        "no-trailing-spaces": "warn",
+        "no-multi-spaces": "error",
+        "indent": ["warn", 2, { "SwitchCase": 1 }],
+        "array-bracket-spacing": ["error", "never"],
+        "object-curly-spacing": ["error", "always"],
+        "key-spacing": ["error", { "afterColon": true }],
+        "keyword-spacing": ["error", { "before": true, "after": true }],
+        "max-len": ["warn", { "code": 120 }]
     }
 }
